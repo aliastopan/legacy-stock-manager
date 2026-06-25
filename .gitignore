@@ -1,0 +1,102 @@
+# =========================
+# OS / Editor / IDE
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# =========================
+# Git / temp / misc
+# =========================
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# =========================
+# Environment / local config
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Docker local overrides / volumes
+# =========================
+docker-compose.override.yml
+.mysql/
+data/
+db-data/
+mysql-data/
+
+# =========================
+# Composer / PHP dependencies
+# =========================
+# If vendor is shipped by the commercial app and you want to keep it in repo,
+# COMMENT OUT the next line.
+# /app/vendor/
+
+# If you do NOT want vendor tracked, leave this uncommented:
+# /app/vendor/
+
+# composer lock only if you start managing dependencies yourself
+# /app/composer.lock
+
+# =========================
+# Application runtime artifacts
+# =========================
+
+# CodeIgniter / app logs
+/app/app/logs/*
+!/app/app/logs/index.html
+!/app/app/logs/.htaccess
+
+# Cache
+/app/app/cache/*
+!/app/app/cache/index.html
+!/app/app/cache/.htaccess
+
+# Sessions if file-based
+/app/app/sessions/*
+!/app/app/sessions/index.html
+!/app/app/sessions/.htaccess
+
+# Uploads / generated files
+/app/assets/uploads/*
+!/app/assets/uploads/index.html
+!/app/assets/uploads/.htaccess
+
+/app/files/*
+!/app/files/index.html
+!/app/files/.htaccess
+
+# If the app writes temp export files / backups
+/app/tmp/*
+!/app/tmp/index.html
+!/app/tmp/.htaccess
+
+/app/backups/*
+!/app/backups/index.html
+!/app/backups/.htaccess
+
+# =========================
+# Node / frontend tooling (only if ever present)
+# =========================
+node_modules/
+dist/
+build/
+
+# =========================
+# Test / coverage
+# =========================
+coverage/
+.phpunit.result.cache

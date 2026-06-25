@@ -1,0 +1,40 @@
+name: legacy-stock-manager
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: sma-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/html
+      - ./docker/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf:ro
+    depends_on:
+      - db
+    environment:
+      TZ: Asia/Jakarta
+    restart: unless-stopped
+
+  db:
+    image: mysql:5.7
+    container_name: sma-db
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sma
+      MYSQL_USER: sma_user
+      MYSQL_PASSWORD: sma_pass
+      TZ: Asia/Jakarta
+    command: >
+      --sql-mode=ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - sma_mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  sma_mysql_data:

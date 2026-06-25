@@ -100,3 +100,5 @@ build/
 # =========================
 coverage/
 .phpunit.result.cache
+
+/vendor/

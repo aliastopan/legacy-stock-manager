@@ -51,6 +51,18 @@
 
         .login-content {
             margin-top: 0;
+            animation: loginFade .7s ease;
+        }
+
+        @keyframes loginFade {
+            from {
+                opacity: 0;
+                transform: translateY(24px) scale(.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .login-page .login-form-links {
@@ -118,6 +130,174 @@
             font-weight:500;
             color: gray;
         }
+
+        .input-group{
+            transition:.25s;
+        }
+
+        .input-group:hover{
+            transform:translateY(-2px);
+        }
+
+        .input-group:focus-within{
+            transform:translateY(-2px);
+        }
+
+        .form-control{
+            transition:.25s;
+        }
+
+        .form-control:focus{
+            box-shadow:
+                0 0 0 4px rgba(37,99,235,.12),
+                0 10px 25px rgba(37,99,235,.08);
+        }
+
+        .btn-success{
+            position:relative;
+            overflow:hidden;
+            transition:.3s;
+        }
+
+        .btn-success:hover{
+            transform:translateY(-2px);
+            box-shadow:0 15px 30px rgba(37,99,235,.28);
+        }
+
+        .btn-success:active{
+            transform:scale(.98);
+        }
+
+        .btn-success::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            left:-120%;
+            background:linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,.35),
+                transparent
+            );
+            transition:.6s;
+        }
+
+        .btn-success:hover::before{
+            left:120%;
+        }
+
+        .login-actions a{
+            position:relative;
+            transition:.25s;
+        }
+
+        .login-actions a::after{
+            content:"";
+            position:absolute;
+            left:0;
+            bottom:-3px;
+
+            width:0;
+            height:2px;
+
+            background:#2563eb;
+
+            transition:.25s;
+        }
+
+        .login-actions a:hover::after{
+            width:100%;
+        }
+
+        .alert{
+            animation:slideAlert .4s ease;
+        }
+
+        @keyframes slideAlert{
+            from{
+                opacity:0;
+                transform:translateY(-10px);
+            }
+            to{
+                opacity:1;
+                transform:none;
+            }
+        }
+
+        .alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+
+            padding: 16px 18px;
+            margin-bottom: 20px;
+
+            border: none;
+            border-radius: 14px;
+
+            box-shadow: 0 10px 25px rgba(15,23,42,.06);
+
+            animation: alertIn .35s ease;
+        }
+
+        .alert::before{
+            font-family: FontAwesome;
+            font-size:20px;
+            margin-top:2px;
+        }
+
+        .alert ul{
+            margin:0;
+            padding-left:18px;
+        }
+
+        .alert li{
+            color:#374151;
+        }
+
+        .alert-success{
+            background:#ecfdf5;
+            border-left:4px solid #10b981;
+        }
+
+        .alert-success::before{
+            content:"\f058";
+            color:#10b981;
+        }
+
+        .alert-danger{
+            background:#fef2f2;
+            border-left:4px solid #ef4444;
+        }
+
+        .alert-danger::before{
+            content:"\f057";
+            color:#ef4444;
+        }
+
+        .alert-warning{
+            background:#fff7ed;
+            border-left:4px solid #f59e0b;
+        }
+
+        .alert-warning::before{
+            content:"\f071";
+            color:#f59e0b;
+        }
+
+        @keyframes alertIn{
+
+            from{
+                opacity:0;
+                transform:translateY(-10px);
+            }
+
+            to{
+                opacity:1;
+                transform:none;
+            }
+
+        }
     </style>
 
 </head>
@@ -160,19 +340,44 @@
 
                             <?php if ($Settings->mmode): ?>
                                 <div class="alert alert-warning">
-                                    <?= lang('site_offline') ?>
+
+                                    <div>
+                                        <strong>Maintenance Mode</strong>
+
+                                        <div style="margin-top:6px">
+                                            <?= lang('site_offline') ?>
+                                        </div>
+
+                                    </div>
+
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($error): ?>
                                 <div class="alert alert-danger">
-                                    <ul><?= $error ?></ul>
+
+                                    <div>
+                                        <strong>Login Failed</strong>
+
+                                        <ul class="list-unstyled" style="margin-top:6px;">
+                                            <?= $error ?>
+                                        </ul>
+                                    </div>
+
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($message): ?>
                                 <div class="alert alert-success">
-                                    <ul><?= $message ?></ul>
+
+                                    <div>
+                                        <strong>Success</strong>
+
+                                        <ul class="list-unstyled" style="margin-top:6px;">
+                                            <?= $message ?>
+                                        </ul>
+                                    </div>
+
                                 </div>
                             <?php endif; ?>
 
@@ -417,6 +622,18 @@
                 $("#login").hide();
                 $(hash).show();
             }
+        });
+
+        $('form.login').on('submit', function () {
+
+            var btn = $(this).find('button[type=submit]');
+
+            btn
+                .prop('disabled', true)
+                .html(
+                    '<i class="fa fa-spinner fa-spin"></i> Signing In...'
+                );
+
         });
     </script>
 </body>

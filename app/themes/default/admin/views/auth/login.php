@@ -61,6 +61,58 @@
             max-width: 110px;
             margin-bottom: 24px !important;
         }
+
+        .login-header{
+            text-align:center;
+            margin-bottom:32px;
+        }
+
+        .login-logo{
+            width:72px;
+            margin-bottom:20px;
+        }
+
+        .login-header h2{
+            font-size:28px;
+            font-weight:700;
+            color:#111827;
+            margin-bottom:8px;
+        }
+
+        .login-header p{
+            color:#6b7280;
+        }
+
+        .form-group label{
+            display:block;
+            font-weight:600;
+            margin-bottom:8px;
+            color:#374151;
+        }
+
+        .login-actions{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin:24px 0;
+        }
+
+        .login-actions a{
+            color:#2563eb;
+            text-decoration:none;
+        }
+
+        .login-actions a:hover{
+            text-decoration:underline;
+        }
+
+        .remember{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            margin:0;
+            cursor:pointer;
+        }
     </style>
 
 </head>
@@ -78,128 +130,117 @@
     </noscript>
     <div class="page-back">
         <div class="contents">
-            <div class="text-center mb-4">
-                <?php if ($Settings->logo2): ?>
-                    <img
-                        src="<?= base_url('assets/uploads/logos/' . $Settings->logo2) ?>"
-                        alt="<?= $Settings->site_name ?>"
-                        class="img-responsive center-block"
-                        style="max-width:110px;">
-                <?php endif; ?>
-            </div>
-
             <div id="login">
                 <div class="container">
 
                     <div class="login-form-div">
                         <div class="login-content">
-                            <?php if ($Settings->mmode) {
-    ?>
-                                <div class="alert alert-warning">
-                                    <button data-dismiss="alert" class="close" type="button">×</button>
-                                    <?= lang('site_offline') ?>
-                                </div>
-                                <?php
-}
-                            if ($error) {
-                                ?>
-                                <div class="alert alert-danger">
-                                    <button data-dismiss="alert" class="close" type="button">×</button>
-                                    <ul class="list-group"><?= $error; ?></ul>
-                                </div>
-                                <?php
-                            }
-                            if ($message) {
-                                ?>
-                                <div class="alert alert-success">
-                                    <button data-dismiss="alert" class="close" type="button">×</button>
-                                    <ul class="list-group"><?= $message; ?></ul>
-                                </div>
-                                <?php
-                            }
-                            ?>
-                            <?php echo admin_form_open('auth/login', 'class="login" data-toggle="validator"'); ?>
-                            <div class="div-title text-center">
-                                <h3>Sign In</h3>
-                                <p class="text-muted">
+
+                            <div class="login-header">
+
+                                <?php if ($Settings->logo2): ?>
+                                    <img
+                                        src="<?= base_url('assets/uploads/logos/' . $Settings->logo2) ?>"
+                                        class="login-logo"
+                                        alt="<?= $Settings->site_name ?>">
+                                <?php endif; ?>
+
+                                <h2>Welcome Back</h2>
+
+                                <p>
                                     <?= lang('login_to_your_account') ?>
                                 </p>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="textbox-wrap form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                        <input type="text" value="<?= DEMO ? 'owner@tecdiary.com' : ''; ?>" required="required" class="form-control" name="identity"
-                                        placeholder="<?= lang('username') ?>"/>
-                                    </div>
-                                </div>
-                                <div class="textbox-wrap form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                        <input type="password" value="<?= DEMO ? '12345678' : ''; ?>" required="required" class="form-control " name="password"
-                                        placeholder="<?= lang('pw') ?>"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php
-                            if ($Settings->captcha) {
-                                ?>
-                                <div class="col-sm-12">
-                                    <div class="textbox-wrap form-group">
-                                        <div class="row">
-                                            <div class="col-sm-6 div-captcha-left">
-                                                <span class="captcha-image"><?php echo $image; ?></span>
-                                            </div>
-                                            <div class="col-sm-6 div-captcha-right">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <a href="<?= admin_url('auth/reload_captcha'); ?>" class="reload-captcha">
-                                                            <i class="fa fa-refresh"></i>
-                                                        </a>
-                                                    </span>
-                                                    <?php echo form_input($captcha); ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php
-                            } /* echo $recaptcha_html; */
-                            ?>
 
-                            <div class="form-action col-sm-12">
-                                <div class="checkbox pull-left">
-                                    <div class="custom-checkbox">
-                                        <?php echo form_checkbox('remember', '1', false, 'id="remember"'); ?>
-                                    </div>
-                                    <span class="checkbox-text pull-left"><label for="remember"><?= lang('remember_me') ?></label></span>
+                            </div>
+
+                            <?php if ($Settings->mmode): ?>
+                                <div class="alert alert-warning">
+                                    <?= lang('site_offline') ?>
                                 </div>
-                                <button type="submit" class="btn btn-success btn-block">
-                                    <i class="fa fa-sign-in"></i>
-                                    <?= lang('login') ?>
-                                </button>
+                            <?php endif; ?>
+
+                            <?php if ($error): ?>
+                                <div class="alert alert-danger">
+                                    <ul><?= $error ?></ul>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($message): ?>
+                                <div class="alert alert-success">
+                                    <ul><?= $message ?></ul>
+                                </div>
+                            <?php endif; ?>
+
+                            <?= admin_form_open('auth/login', 'class="login"') ?>
+
+                            <div class="form-group">
+
+                                <label>Username</label>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+
+                                    <input
+                                        class="form-control"
+                                        name="identity"
+                                        placeholder="<?= lang('username') ?>"
+                                        required>
+                                </div>
+
                             </div>
-                            <?php echo form_close(); ?>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="login-form-links text-center">
-                            <h5><?= lang('forgot_your_password') ?></h5>
-                            <span><?= lang('dont_worry') ?></span>
-                            <a href="#forgot_password" class="text-danger forgot_password_link"><?= lang('click_here') ?></a>
-                            <span><?= lang('to_rest') ?></span>
-                        </div>
-                        <?php
-                        if ($Settings->allow_reg) {
-                            ?>
-                            <div class="login-form-links link1">
-                                <h4 class="text-info"><?= lang('dont_have_account') ?></h4>
-                                <span><?= lang('no_worry') ?></span>
-                                <a href="#register" class="text-info register_link"><?= lang('click_here') ?></a>
-                                <span><?= lang('to_register') ?></span>
+
+                            <div class="form-group">
+
+                                <label>Password</label>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-lock"></i>
+                                    </span>
+
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        name="password"
+                                        placeholder="<?= lang('pw') ?>"
+                                        required>
+
+                                </div>
+
                             </div>
-                            <?php
-                        }
-                        ?>
+
+                            <div class="login-actions">
+
+                                <label class="remember">
+
+                                    <?= form_checkbox('remember','1',false) ?>
+
+                                    <span><?= lang('remember_me') ?></span>
+
+                                </label>
+
+                                <a href="#forgot_password"
+                                class="forgot_password_link">
+
+                                    Forgot Password?
+
+                                </a>
+
+                            </div>
+
+                            <button class="btn btn-success btn-block">
+
+                                <i class="fa fa-sign-in"></i>
+
+                                Sign In
+
+                            </button>
+
+                            <?= form_close(); ?>
+
+                        </div>
                     </div>
                 </div>
             </div>

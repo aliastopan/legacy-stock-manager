@@ -113,6 +113,11 @@
             margin:0;
             cursor:pointer;
         }
+
+        .remember span{
+            font-weight:500;
+            color: gray;
+        }
     </style>
 
 </head>

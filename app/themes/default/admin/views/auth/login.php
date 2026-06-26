@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-$bgs = glob(VIEWPATH . 'default/admin/assets/images/login-bgs/*.jpg');
-foreach ($bgs as &$bg) {
-    $af = explode('assets/', $bg);
-    $bg = $assets . $af[1];
-}
+// $bgs = glob(VIEWPATH . 'default/admin/assets/images/login-bgs/*.jpg');
+// foreach ($bgs as &$bg) {
+//     $af = explode('assets/', $bg);
+//     $bg = $assets . $af[1];
+// }
 // $this->sma->print_arrays($bgs);
 ?><!DOCTYPE html>
 <html>
@@ -23,29 +23,43 @@ foreach ($bgs as &$bg) {
     <style>
         body {
             min-width: 350px;
+            background: #f5f7fb;
         }
+
         .bblue {
             background: #fff !important;
         }
+
         .login-page .page-back {
             display: flex;
             align-items: center;
-            flex-direction: column;
             justify-content: center;
-            background-size: cover !important;
-            background-position: center !important;
-            background-image: url("<?= $bgs[mt_rand(0, count($bgs) - 1)] ?>") !important;
-        }
-        .contents {
-            margin: 16px;
-            border-radius: 6px;
+            min-height: 100vh;
             padding: 32px 16px;
-            background: rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0, 0, 0, 0.2);
+            background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
         }
-        .login-content, .login-page .login-form-links {
-            margin-top: 20px;
-            border-radius: 6px;
+
+        .contents {
+            width: 100%;
+            max-width: 440px;
+            margin: 0 auto;
+            padding: 0;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+        }
+
+        .login-content {
+            margin-top: 0;
+        }
+
+        .login-page .login-form-links {
+            margin-top: 16px;
+        }
+
+        .text-center img {
+            max-width: 110px;
+            margin-bottom: 24px !important;
         }
     </style>
 
@@ -64,10 +78,14 @@ foreach ($bgs as &$bg) {
     </noscript>
     <div class="page-back">
         <div class="contents">
-            <div class="text-center">
-                <?php if ($Settings->logo2) {
-    echo '<img src="' . base_url('assets/uploads/logos/' . $Settings->logo2) . '" alt="' . $Settings->site_name . '" style="margin-bottom:10px;" />';
-} ?>
+            <div class="text-center mb-4">
+                <?php if ($Settings->logo2): ?>
+                    <img
+                        src="<?= base_url('assets/uploads/logos/' . $Settings->logo2) ?>"
+                        alt="<?= $Settings->site_name ?>"
+                        class="img-responsive center-block"
+                        style="max-width:110px;">
+                <?php endif; ?>
             </div>
 
             <div id="login">
@@ -101,8 +119,11 @@ foreach ($bgs as &$bg) {
                             }
                             ?>
                             <?php echo admin_form_open('auth/login', 'class="login" data-toggle="validator"'); ?>
-                            <div class="div-title col-sm-12">
-                                <h3 class="text-primary"><?= lang('login_to_your_account') ?></h3>
+                            <div class="div-title text-center">
+                                <h3>Sign In</h3>
+                                <p class="text-muted">
+                                    <?= lang('login_to_your_account') ?>
+                                </p>
                             </div>
                             <div class="col-sm-12">
                                 <div class="textbox-wrap form-group">
@@ -153,13 +174,16 @@ foreach ($bgs as &$bg) {
                                     </div>
                                     <span class="checkbox-text pull-left"><label for="remember"><?= lang('remember_me') ?></label></span>
                                 </div>
-                                <button type="submit" class="btn btn-success pull-right"><?= lang('login') ?> &nbsp; <i class="fa fa-sign-in"></i></button>
+                                <button type="submit" class="btn btn-success btn-block">
+                                    <i class="fa fa-sign-in"></i>
+                                    <?= lang('login') ?>
+                                </button>
                             </div>
                             <?php echo form_close(); ?>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="login-form-links link2">
-                            <h4 class="text-danger"><?= lang('forgot_your_password') ?></h4>
+                        <div class="login-form-links text-center">
+                            <h5><?= lang('forgot_your_password') ?></h5>
                             <span><?= lang('dont_worry') ?></span>
                             <a href="#forgot_password" class="text-danger forgot_password_link"><?= lang('click_here') ?></a>
                             <span><?= lang('to_rest') ?></span>

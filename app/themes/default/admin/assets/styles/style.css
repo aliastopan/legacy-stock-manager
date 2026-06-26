@@ -1787,9 +1787,6 @@ label {
     direction: ltr;
     cursor: pointer;
 }
-.checkbox div {
-    margin-right: 5px;
-}
 .ui-autocomplete-loading {
     background: #ffffff url('../images/loading.gif') no-repeat right center;
 }

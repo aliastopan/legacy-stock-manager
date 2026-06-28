@@ -80,8 +80,8 @@
         }
 
         .login-logo{
-            width:72px;
-            margin-bottom:20px;
+            width:180px;
+            margin-bottom:5px;
         }
 
         .login-header h2{
